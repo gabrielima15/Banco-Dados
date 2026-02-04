@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class ConnectionFactory {
 
-    private static final String URL = "127.0.0.1"; 
+    private static final String URL = "dbc:postgresql://db.bfpipvskszqukxdpxiaz.supabase.co:5432/postgres?sslmode=require";
     private static final String USER = "postgres";
     private static final String PASS = "postgres";
 
