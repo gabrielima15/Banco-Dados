@@ -43,7 +43,8 @@ public class TimeFutebolDAO {
                     rs.getString("nome"),
                     rs.getString("cidade"),
                     rs.getObject("id_tecnico",Integer.class)
-                ));            }
+                ));            
+            }
         }
         return lista;
     }

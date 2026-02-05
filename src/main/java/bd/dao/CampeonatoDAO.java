@@ -25,8 +25,31 @@ public class CampeonatoDAO {
         }
     }
 
-    // public List<Campeonato> listar() throws Exception{
-    //     List<Campeonato> lista = new ArrayList<>();
+    public List<Campeonato> listar() throws Exception{
+        List<Campeonato> lista = new ArrayList<>();
 
+        String sql = "SELECT * FROM Campeonato";
+
+        try(Connection c = ConnectionFactory.getConnection(); 
+                Statement st = c.createStatement()){
+                ResultSet rs = st.executeQuery(sql);
+
+                while (rs.next()) {
+                    lista.add(new Campeonato(
+                        rs.getInt("id"),
+                        rs.getString("nome")
+                    ));
+                }
+        }
+        return lista;
+    }
+
+    // public Campeonato buscar(int id) throws Exception {
+    //     String sql = "SELECT * FROM Campeonato WHERE id=?";
+
+    //     try(Connection c = ConnectionFactory.getConnection();
+    //         PreparedStatement ps = c.prepareStatement(sql)){
+
+    //         }
     // }
 }
