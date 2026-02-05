@@ -1,1 +1,7 @@
-main/java/banco/dados/Main.class
+bd/dao/CampeonatoDAO.class
+bd/model/TimeFutebol.class
+bd/model/Serie.class
+bd/model/Tecnico.class
+bd/model/Campeonato.class
+bd/dao/TimeFutebolDAO.class
+bd/util/ConnectionFactory.class

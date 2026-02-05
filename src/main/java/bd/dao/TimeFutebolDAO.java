@@ -18,8 +18,9 @@ public class TimeFutebolDAO {
     public void salvar(TimeFutebol time) throws Exception{
         String sql = "INSERT INTO Time_futebol" + "(nome,cidade,id_tecnico)" + "VALUES (?,?,?)";
 
-        try (Connection c = ConnectionFactory.getConnection();){
-            PreparedStatement ps = c.prepareStatement(sql);
+        try (Connection c = ConnectionFactory.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)){
+
             ps.setString(1, time.getNome());
             ps.setString(2, time.getCidade());  
             ps.setObject(3, time.getIdTecnico());
@@ -32,8 +33,8 @@ public class TimeFutebolDAO {
         List<TimeFutebol> lista = new ArrayList<>();
         String sql = "SELECT * FROM time_futebol";
 
-        try(Connection c = ConnectionFactory.getConnection()){
-            Statement st = c.createStatement();
+        try(Connection c = ConnectionFactory.getConnection();
+            Statement st = c.createStatement()){
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
@@ -50,8 +51,8 @@ public class TimeFutebolDAO {
     public TimeFutebol buscar(int id) throws Exception{
         String sql = "SELECT * FROM time_futebol WHERE id=?";
 
-        try(Connection c = ConnectionFactory.getConnection()){
-            PreparedStatement ps = c.prepareStatement(sql);
+        try(Connection c = ConnectionFactory.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)){
 
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
