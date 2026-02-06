@@ -22,8 +22,8 @@ public class TimeFutebolDAO {
             PreparedStatement ps = c.prepareStatement(sql)){
 
             ps.setString(1, time.getNome());
-            ps.setString(2, time.getCidade());  
-            ps.setObject(3, time.getIdTecnico());
+            ps.setObject(2, time.getIdcidade());  
+            ps.setObject(3, time.getIdtecnico());
             ps.execute();
             
         }
@@ -41,7 +41,7 @@ public class TimeFutebolDAO {
                 lista.add(new TimeFutebol(
                     rs.getInt("id"),
                     rs.getString("nome"),
-                    rs.getString("cidade"),
+                    rs.getObject("idcidade",Integer.class),
                     rs.getObject("id_tecnico",Integer.class)
                 ));            
             }
@@ -62,7 +62,7 @@ public class TimeFutebolDAO {
                 return new TimeFutebol(
                     rs.getInt("id"),
                     rs.getString("nome"),
-                    rs.getString("cidade"),
+                    rs.getObject("idcidade",Integer.class),
                     rs.getObject("id_tecnico",Integer.class)
                 );
             }
@@ -77,8 +77,8 @@ public class TimeFutebolDAO {
             PreparedStatement ps = c.prepareStatement(sql)){
 
             ps.setString(1, time.getNome());
-            ps.setString(2, time.getCidade());
-            ps.setObject(3, time.getIdTecnico());
+            ps.setObject(2, time.getIdcidade());
+            ps.setObject(3, time.getIdtecnico());
             ps.setInt(4, time.getId());
 
             ps.execute();

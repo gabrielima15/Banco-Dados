@@ -3,24 +3,24 @@ package bd.model;
 public class TimeFutebol {
     private int id;
     private String nome;
-    private String cidade;
-    private Integer idTecnico;
+    private Integer idcidade;
+    private Integer idtecnico;
 
     public TimeFutebol(){
 
     }
 
-    public TimeFutebol(int id, String nome, String cidade, Integer idTecnico) {
+    public TimeFutebol(int id, String nome, Integer idcidade, Integer idtecnico) {
         this.id = id;
         this.nome = nome;
-        this.cidade = cidade;
-        this.idTecnico = idTecnico;
+        this.idcidade = idcidade;
+        this.idtecnico = idtecnico;
     }
 
-    public TimeFutebol(String nome, String cidade, Integer idTecnico) {
+    public TimeFutebol(String nome, Integer idcidade, Integer idtecnico) {
         this.nome = nome;
-        this.cidade = cidade;
-        this.idTecnico = idTecnico;
+        this.idcidade = idcidade;
+        this.idtecnico = idtecnico;
     }
 
     public int getId() {
@@ -39,20 +39,20 @@ public class TimeFutebol {
         this.nome = nome;
     }
 
-    public String getCidade() {
-        return cidade;
+    public Integer getIdcidade() {
+        return idcidade;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setIdcidade(Integer idcidade) {
+        this.idcidade = idcidade;
     }
 
-    public Integer getIdTecnico() {
-        return idTecnico;
+    public Integer getIdtecnico() {
+        return idtecnico;
     }
 
-    public void setIdTecnico(Integer idTecnico) {
-        this.idTecnico = idTecnico;
+    public void setIdtecnico(Integer idtecnico) {
+        this.idtecnico = idtecnico;
     }
 
 }
