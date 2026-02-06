@@ -44,12 +44,43 @@ public class CampeonatoDAO {
         return lista;
     }
 
-    // public Campeonato buscar(int id) throws Exception {
-    //     String sql = "SELECT * FROM Campeonato WHERE id=?";
+    public Campeonato buscar(int id) throws Exception {
+        String sql = "SELECT * FROM Campeonato WHERE id=?";
 
-    //     try(Connection c = ConnectionFactory.getConnection();
-    //         PreparedStatement ps = c.prepareStatement(sql)){
+        try(Connection c = ConnectionFactory.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)){
 
-    //         }
-    // }
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+
+                if(rs.next()){
+                    return new Campeonato(
+                    rs.getInt("id"), 
+                    rs.getString("nome"));
+                }
+        }
+        return null;
+    }
+
+    public void atualizar(Campeonato campeonato) throws Exception {
+        String sql = "UPDATE Campeonato SET nome=? WHERE id=?";
+
+        try(Connection c = ConnectionFactory.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)){
+
+                ps.setString(1, campeonato.getNome());
+                ps.execute();
+        }
+    }
+
+    public void excluir(int id) throws Exception{
+        String sql = "DELETE FROM Canpeonato WHERE id=?";
+
+        try(Connection c = ConnectionFactory.getConnection();
+            PreparedStatement ps = c.prepareStatement(sql)) {
+                
+                ps.setInt(1, id);
+                ps.execute();
+        }
+    }
 }
