@@ -1,42 +1,44 @@
-﻿<%@ page import="br.edu.ifpb.bd.model.Aluno,java.util.*,br.edu.ifpb.bd.model.Curso" %>
-<%
-Aluno aluno = (Aluno) request.getAttribute("aluno");
-%>
+<%-- 
+    Document   : excluir.jsp
+    Created on : Feb 1, 2026, 6:32:45 PM
+    Author     : janailson
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="css/style.css">
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Aluno</title>
+    <title>Excluir Time</title>
     <link rel="stylesheet" href="css/estiloPaginaForm.css">
 </head>
 <body>
     <div class="container">
-        <h2>Realmente deseja excluir?</h2>
-        <form action="excluir" method="post">
+        <h2 style="color: red;">Realmente deseja excluir este time?</h2>
+        <form action="excluirTime" method="post">
 
-            <input type="hidden" name="id" value="<%= aluno!=null?aluno.getId():"" %>">
+            <input type="hidden" name="id" value="">
 
             <div class="form-group">
-                <label for="nome">Nome:</label>
-                <span><%= aluno.getNome() %></span>
+                <label>Nome:</label>
+                <span></span>
             </div>
 
             <div class="form-group">
-                <label for="matricula">Matrícula:</label>
-                <span><%= aluno.getMatricula() %></span>
+                <label>Cidade:</label>
+                <span></span>
             </div>
 
             <div class="form-group">
-                <label for="dataNascimento">Data de Nascimento</label>
-                <span><%= aluno.getDataNascimento() %></span>
+                <label>Estádio:</label>
+                <span></span>
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Excluir">
-               
-                <a href="/app-web/listarAlunos">
-                    <input type="button" value="Cancelar">
+                <input type="submit" value="Confirmar Exclusão" style="background-color: #f44336;">
+                <a href="listarTimes">
+                    <input type="button" value="Cancelar" style="background-color: #ccc; color: black;">
                 </a>
             </div>
 

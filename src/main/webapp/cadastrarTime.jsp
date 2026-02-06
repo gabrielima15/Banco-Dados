@@ -14,10 +14,11 @@
     <meta charset="UTF-8">
     <title>Novo Time</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel ="stylesheet" href="css/cadastrostyle.css">
 </head>
 <body>
     <div class="container">
-        <h1>Cadastrar Time</h1>
+        <div class="container-cadastro"> <h1>Cadastrar Time</h1> </div>
         
             <p style=" font-weight: bold; margin-bottom: 15px;"></p> 
         
