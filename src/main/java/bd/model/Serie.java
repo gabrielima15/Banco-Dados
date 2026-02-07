@@ -3,20 +3,20 @@ package bd.model;
 public class Serie {
     private int id;
     private String nome;
-    private Integer id_time;
-    private Integer id_campeonato;
+    private Integer idTime;
+    private Integer idCampeonato;
 
-    public Serie(int id, String nome, Integer id_time, Integer id_campeonato) {
+    public Serie(int id, String nome, Integer idTime, Integer idCampeonato) {
         this.id = id;
         this.nome = nome;
-        this.id_time = id_time;
-        this.id_campeonato = id_campeonato;
+        this.idTime = idTime;
+        this.idCampeonato = idCampeonato;
     }
 
-    public Serie(String nome, Integer id_time, Integer id_campeonato) {
+    public Serie(String nome, Integer idTime, Integer idCampeonato) {
         this.nome = nome;
-        this.id_time = id_time;
-        this.id_campeonato = id_campeonato;
+        this.idTime = idTime;
+        this.idCampeonato = idCampeonato;
     }
 
     public int getId() {
@@ -35,20 +35,20 @@ public class Serie {
         this.nome = nome;
     }
 
-    public Integer getId_time() {
-        return id_time;
+    public Integer getIdtime() {
+        return idTime;
     }
 
-    public void setId_time(Integer id_time) {
-        this.id_time = id_time;
+    public void setIdtime(Integer idTime) {
+        this.idTime = idTime;
     }
 
-    public Integer getId_campeonato() {
-        return id_campeonato;
+    public Integer getIdcampeonato() {
+        return idCampeonato;
     }
 
-    public void setId_campeonato(Integer id_campeonato) {
-        this.id_campeonato = id_campeonato;
+    public void setIdcampeonato(Integer idCampeonato) {
+        this.idCampeonato = idCampeonato;
     }
 
     

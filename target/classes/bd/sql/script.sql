@@ -31,33 +31,17 @@ CREATE Table Jogador(
     Foreign key(id_time) REFERENCES Time_futebol (id)
 );
 
--- CREATE Table serie(
---     id serial PRIMARY key,
---     nome VARCHAR(80) NOT NULL,
---     id_time INTEGER,
---     id_campeonato INTEGER,
---     Foreign Key (id_time) REFERENCES Time_futebol(id),
---     Foreign Key (id_campeonato) REFERENCES Campeonato(id)
--- );
-
-CREATE TABLE Serie (
-    id serial PRIMARY KEY,
-    nome VARCHAR(10) NOT NULL,
-    id_campeonato INTEGER,
-    FOREIGN KEY (id_campeonato) REFERENCES Campeonato(id)
-);
-
-CREATE TABLE Time_Campeonato (
+CREATE Table serie(
+    id serial PRIMARY key,
     id_time INTEGER,
-    id_serie INTEGER,
-    PRIMARY KEY (id_time, id_serie),
-    FOREIGN KEY (id_time) REFERENCES Time_futebol(id),
-    FOREIGN KEY (id_serie) REFERENCES Serie(id)
+    id_campeonato INTEGER,
+    Foreign Key (id_time) REFERENCES Time_futebol(id),
+    Foreign Key (id_campeonato) REFERENCES Campeonato(id)
 );
 
 INSERT INTO Cidade(nome) VALUES ('Espanha'),('Alemanha');
 INSERT INTO Campeonato(nome) VALUES('champions');
 INSERT INTO Tecnico(nome) VALUES ('Hans-Dieter Flick'),('Álvaro Arbeloa'),('Vincent Kompany');
 
-INSERT INTO Time_futebol(nome,id_tecnico,id_cidade) VALUES 
+INSERT INTO serie(nome,id_tecnico,id_cidade) VALUES 
 ('barcelona',1,1),('Real Madri'2,1),('Bayern'3,2);
