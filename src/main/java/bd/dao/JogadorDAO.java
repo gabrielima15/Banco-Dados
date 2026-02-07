@@ -30,7 +30,7 @@ public class JogadorDAO {
 
     public List<Jogador> listar() throws Exception{
         List<Jogador> lista = new ArrayList<>();
-        String sql = "SELECT * FROM jogador_futebol";
+        String sql = "SELECT * FROM Jogador";
 
         try(Connection c = ConnectionFactory.getConnection();
             Statement st = c.createStatement()){
@@ -50,7 +50,7 @@ public class JogadorDAO {
     }
 
     public Jogador buscar(int id) throws Exception{
-        String sql = "SELECT * FROM jogador_futebol WHERE id=?";
+        String sql = "SELECT * FROM Jogador WHERE id=?";
 
         try(Connection c = ConnectionFactory.getConnection();
             PreparedStatement ps = c.prepareStatement(sql)){
