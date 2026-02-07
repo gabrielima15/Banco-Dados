@@ -8,12 +8,13 @@ import java.util.List;
 import javax.naming.spi.DirStateFactory.Result;
 import java.util.ArrayList;
 
+import bd.dto.JogadorDTO;
 import bd.model.Jogador;
 import bd.util.ConnectionFactory;
 
 public class JogadorDAO {
     
-      public void salvar(Jogador jogador) throws Exception{
+    public void salvar(Jogador jogador) throws Exception{
         String sql = "INSERT INTO Jogador " + "(nome,N_camisa,posicao,id_time) " + "VALUES (?,?,?,?)";
 
         try (Connection c = ConnectionFactory.getConnection();
@@ -27,6 +28,23 @@ public class JogadorDAO {
             
         }
     }
+
+    // public void inserir(JogadorDTO jogador) throws Exception {
+    //     Connection c = ConnectionFactory.getConnection();
+    //     PreparedStatement ps = c.prepareStatement(
+    //         "INSERT INTO Jogador (nome, N_camisa, posicao, id_time) VALUES (?, ?, ?, ?)"
+    //     );
+
+    //     ps.setString(1, jogador.getNome());
+    //     ps.setInt(2, jogador.getNumeroCamisa());
+    //     ps.setInt(3, jogador.getPosicao());
+    //     ps.setInt(4, jogador.getIdTime());
+
+    //     ps.executeUpdate();
+    //     ps.close();
+    //     c.close();
+    // }
+
 
     public List<Jogador> listar() throws Exception{
         List<Jogador> lista = new ArrayList<>();
@@ -72,7 +90,7 @@ public class JogadorDAO {
     }
 
     public void atualizar(Jogador jogador)throws Exception{
-        String sql = "UPDATE Jogador SET nome=?,N_camisa=?,id_time=?, WHERE id=?";
+        String sql = "UPDATE Jogador SET nome=?,N_camisa=?,id_time=? WHERE id=?";
 
         try(Connection c = ConnectionFactory.getConnection();
             PreparedStatement ps = c.prepareStatement(sql)){
@@ -80,10 +98,26 @@ public class JogadorDAO {
             ps.setString(1, jogador.getNome());
             ps.setInt(2,jogador.getnCamisa());
             ps.setInt(3, jogador.getPosicao());
-            ps.setObject(3, jogador.getIdTime());
+            ps.setObject(4, jogador.getIdTime());
             ps.execute();
         }
     }
+
+    // public void atualizar(JogadorDTO jogador) throws Exception {
+    //     String sql = "UPDATE Jogador SET nome=?, N_camisa=?, posicao=?, id_time=? WHERE id=?";
+
+    //     try (Connection c = ConnectionFactory.getConnection();
+    //             PreparedStatement ps = c.prepareStatement(sql)) {
+
+    //         ps.setString(1, jogador.getNome());
+    //         ps.setInt(2, jogador.getNumeroCamisa());
+    //         ps.setInt(3, jogador.getPosicao());
+    //         ps.setInt(4, jogador.getIdTime());
+    //         ps.setInt(5, jogador.getId());
+
+    //         ps.executeUpdate();
+    //     }
+    // }
 
     public void excluir(int id) throws Exception {
         String sql = "DELETE FROM Jogador WHERE id=?";
