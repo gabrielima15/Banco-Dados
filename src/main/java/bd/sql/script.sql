@@ -1,47 +1,49 @@
-CREATE Table Cidade(
-    id serial PRIMARY key,
-    nome VARCHAR(40) NOT NULL
+-- 1. Cidade
+CREATE TABLE cidade (
+    id_cidade SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
 );
 
-CREATE Table Tecnico(
-    id serial PRIMARY KEY,
-    nome VARCHAR(80) NOT NULL
+-- 2. Tecnico
+CREATE TABLE tecnico (
+    id_tecnico SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
 );
 
-CREATE Table Campeonato(
-    id serial PRIMARY KEY,
-    nome VARCHAR(80) NOT NULL
+-- 3. Time
+CREATE TABLE Time_futebol (
+    id_time SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    caminho_escudo VARCHAR(255),
+    id_cidade INT NOT NULL,
+    id_tecnico INT UNIQUE, 
+    FOREIGN KEY (id_cidade) REFERENCES cidade(id_cidade),
+    FOREIGN KEY (id_tecnico) REFERENCES tecnico(id_tecnico)
 );
 
-CREATE Table Time_futebol(
-    id serial PRIMARY KEY,
-    nome VARCHAR(80) not NULL,
-    id_cidade INTEGER,
-    id_tecnico INTEGER UNIQUE,
-    Foreign Key (id_tecnico) REFERENCES Tecnico(id),
-    Foreign key (id_cidade) REFERENCES Cidade (id)
+-- 4. Jogador
+CREATE TABLE jogador (
+    id_jogador SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    n_camisa INT,
+    posicao VARCHAR(50),
+    caminho_foto VARCHAR(255), 
+    id_time INT NOT NULL,
+   
+    FOREIGN KEY (id_time) REFERENCES Time_futebol(id_time) ON DELETE CASCADE
 );
 
-CREATE Table Jogador(
-    id serial PRIMARY key,
-    nome VARCHAR(20),
-    N_camisa INT,
-    posicao INT,
-    id_time INTEGER,
-    Foreign key(id_time) REFERENCES Time_futebol (id)
+-- 5. Campeonato
+CREATE TABLE campeonato (
+    id_campeonato SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
 );
 
-CREATE Table serie(
-    id serial PRIMARY key,
-    id_time INTEGER,
-    id_campeonato INTEGER,
-    Foreign Key (id_time) REFERENCES Time_futebol(id),
-    Foreign Key (id_campeonato) REFERENCES Campeonato(id)
+-- 6. Tabela Associativa
+CREATE TABLE time_campeonato (
+    id_time INT,
+    id_campeonato INT,
+    PRIMARY KEY (id_time, id_campeonato),
+    FOREIGN KEY (id_time) REFERENCES Time_futebol(id_time),
+    FOREIGN KEY (id_campeonato) REFERENCES campeonato(id_campeonato)
 );
-
-INSERT INTO Cidade(nome) VALUES ('Espanha'),('Alemanha');
-INSERT INTO Campeonato(nome) VALUES('champions');
-INSERT INTO Tecnico(nome) VALUES ('Hans-Dieter Flick'),('Álvaro Arbeloa'),('Vincent Kompany');
-
-INSERT INTO serie(nome,id_tecnico,id_cidade) VALUES 
-('barcelona',1,1),('Real Madri'2,1),('Bayern'3,2);
