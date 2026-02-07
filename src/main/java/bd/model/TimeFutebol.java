@@ -1,34 +1,34 @@
 package bd.model;
 
 public class TimeFutebol {
-    private int id;
+    private int id_time;
     private String nome;
-    private Integer idcidade;
-    private Integer idtecnico;
+    private String caminhoEscudo; 
+    private Integer id_cidade;
+    private Integer id_tecnico;
+    
+    // Campos auxiliares (apenas para exibição na lista, não gravam no banco)
+    private String nomeCidade;
+    private String nomeTecnico;
 
-    public TimeFutebol(){
+    public TimeFutebol() {}
 
-    }
-
-    public TimeFutebol(int id, String nome, Integer idcidade, Integer idtecnico) {
-        this.id = id;
+    public TimeFutebol(int id_time, String nome, String caminhoEscudo, Integer id_cidade, Integer id_tecnico) {
+        this.id_time = id_time;
         this.nome = nome;
-        this.idcidade = idcidade;
-        this.idtecnico = idtecnico;
+        this.caminhoEscudo = caminhoEscudo;
+        this.id_cidade = id_cidade;
+        this.id_tecnico = id_tecnico;
     }
 
-    public TimeFutebol(String nome, Integer idcidade, Integer idtecnico) {
-        this.nome = nome;
-        this.idcidade = idcidade;
-        this.idtecnico = idtecnico;
-    }
+    // --- GETTERS E SETTERS ---
 
     public int getId() {
-        return id;
+        return id_time;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int id_time) {
+        this.id_time = id_time;
     }
 
     public String getNome() {
@@ -38,21 +38,47 @@ public class TimeFutebol {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public Integer getIdcidade() {
-        return idcidade;
+    
+    // Getter e Setter para o Escudo
+    public String getCaminhoEscudo() {
+        return caminhoEscudo;
     }
 
-    public void setIdcidade(Integer idcidade) {
-        this.idcidade = idcidade;
+    public void setCaminhoEscudo(String caminhoEscudo) {
+        this.caminhoEscudo = caminhoEscudo;
+    }
+
+    public Integer getId_cidade() {
+        return id_cidade;
+    }
+
+    public void setId_cidade(Integer id_cidade) {
+        this.id_cidade = id_cidade;
     }
 
     public Integer getIdtecnico() {
-        return idtecnico;
+        return id_tecnico;
     }
 
-    public void setIdtecnico(Integer idtecnico) {
-        this.idtecnico = idtecnico;
+    public void setIdtecnico(Integer id_tecnico) {
+        this.id_tecnico = id_tecnico;
+    }
+    
+    
+    
+    public String getNomeCidade() {
+        return nomeCidade;
     }
 
+    public void setNomeCidade(String nomeCidade) {
+        this.nomeCidade = nomeCidade;
+    }
+    
+    public String getNomeTecnico() {
+        return nomeTecnico;
+    }
+
+    public void setNomeTecnico(String nomeTecnico) {
+        this.nomeTecnico = nomeTecnico;
+    }
 }
