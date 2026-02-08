@@ -1,6 +1,5 @@
 bd/dto/JogadorDTO.class
 bd/model/TimeFutebol.class
-bd/servlet/Servlet.class
 bd/dao/CidadeDAO.class
 bd/model/Tecnico.class
 bd/dto/TimeFutebolDTO.class
@@ -8,6 +7,7 @@ bd/model/Campeonato.class
 bd/servlet/CadastrarTimeServlet.class
 bd/dto/SerieDTO.class
 bd/dao/CampeonatoDAO.class
+bd/servlet/ExcluirTimeServlet.class
 bd/model/Jogador.class
 bd/model/Serie.class
 bd/servlet/EditarTimeServlet.class

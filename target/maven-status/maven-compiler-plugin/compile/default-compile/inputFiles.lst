@@ -4,12 +4,12 @@
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/util/ConnectionFactory.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/dto/CampeonatoDTO.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/servlet/EditarTimeServlet.java
+/home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/servlet/ExcluirTimeServlet.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/model/Cidade.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/model/TimeFutebol.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/model/Serie.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/dto/TimeFutebolDTO.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/dto/CidadeDTO.java
-/home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/servlet/Servlet.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/dao/TimeFutebolDAO.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/dao/JogadorDAO.java
 /home/gabriel/projetosJava/v2/Banco-Dados/src/main/java/bd/dto/SerieDTO.java

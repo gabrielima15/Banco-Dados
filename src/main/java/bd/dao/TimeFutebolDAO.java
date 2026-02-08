@@ -189,20 +189,20 @@ public class TimeFutebolDAO {
     }
 
     // --- ATUALIZAR SIMPLES (Só o time) ---
-    public void atualizar(TimeFutebol time) throws Exception {
-        String sql = "UPDATE Time_futebol SET nome=?, id_cidade=?, id_tecnico=? WHERE id_time=?";
+    // public void atualizar(TimeFutebol time) throws Exception {
+    //     String sql = "UPDATE Time_futebol SET nome=?, id_cidade=?, id_tecnico=? WHERE id_time=?";
 
-        try(Connection c = ConnectionFactory.getConnection();
-            PreparedStatement ps = c.prepareStatement(sql)){
+    //     try(Connection c = ConnectionFactory.getConnection();
+    //         PreparedStatement ps = c.prepareStatement(sql)){
 
-            ps.setString(1, time.getNome());
-            ps.setObject(2, time.getId_cidade());
-            ps.setObject(3, time.getIdtecnico());
-            ps.setInt(4, time.getId());
+    //         ps.setString(1, time.getNome());
+    //         ps.setObject(2, time.getId_cidade());
+    //         ps.setObject(3, time.getIdtecnico());
+    //         ps.setInt(4, time.getId());
 
-            ps.execute();
-        }
-    }
+    //         ps.execute();
+    //     }
+    // }
 
     // --- EXCLUIR ---
     public void excluir(int id) throws Exception {
