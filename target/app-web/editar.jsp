@@ -1,79 +1,69 @@
-﻿<%@ page import="br.edu.ifpb.bd.model.Aluno,java.util.*,br.edu.ifpb.bd.model.Curso" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="bd.dao.TimeFutebolDAO" %>
+<%@ page import="bd.model.TimeFutebol" %>
+
 <%
-Aluno aluno = (Aluno) request.getAttribute("aluno");
+    // Lógica para carregar os dados do time antes de mostrar o formulário
+    String idStr = request.getParameter("id");
+    TimeFutebol time = null;
+    
+    if (idStr != null) {
+        TimeFutebolDAO dao = new TimeFutebolDAO();
+        time = dao.buscar(Integer.parseInt(idStr));
+    }
+    
+    // Se não achou o time, volta pro início
+    if (time == null) {
+        response.sendRedirect("listarTimes.jsp");
+        return;
+    }
 %>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Aluno</title>
-    <link rel="stylesheet" href="css/estiloPaginaForm.css">
+    <title>Editar Time</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/casdastrostyle.css">
 </head>
 <body>
     <div class="container">
-        <h2>Cadastro</h2>
-        <form action="editar" method="post">
+        <div class="header-cadastro">
+            <h1>Editar Time: <%= time.getNome() %></h1>
+        </div>
 
-            <input type="hidden" name="id" value="<%= aluno!=null?aluno.getId():"" %>">
+        <form method="post" action="EditarTimeServlet">
+            
+            <%-- O ID fica escondido aqui. O usuário não vê, mas é enviado pro Servlet --%>
+            <input type="hidden" name="id" value="<%= time.getId() %>">
 
             <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" value="<%= aluno.getNome() %>">
+                <label>Nome do Time:</label>
+                <input type="text" name="nome" value="<%= time.getNome() %>" required class="form-control">
             </div>
 
             <div class="form-group">
-                <label for="matricula">Matrícula:</label>
-                <input type="text" id="matricula" name="matricula" value="<%= aluno.getMatricula() %>">
+                <label>URL do Escudo (Imagem):</label>
+                <input type="text" name="escudo" value="<%= (time.getCaminhoEscudo() == null) ? "" : time.getCaminhoEscudo() %>" placeholder="Cole o link da imagem aqui" class="form-control">
             </div>
-
+     
             <div class="form-group">
-                <label for="dataNascimento">Data de Nascimento</label>
-                <input type="date" id="dataNascimento" name="dataNascimento" value="<%= aluno.getDataNascimento() %>">
+                <label>Cidade (Sede):</label>
+                <input type="text" name="cidade" value="<%= time.getNomeCidade() %>" required class="form-control">
             </div>
-
+            
             <div class="form-group">
-                <label>Possui necessidade específica?</label>
-                <div class="radio-group">
-                    <label><input type="radio" name="possuiNecessidadeEspecifica" value="true" <%= aluno.getPossuiNecessidadeEspecifica() == true ? "checked" : "" %>>
-                        SIM
-                    </label>
-                    <label><input type="radio" name="possuiNecessidadeEspecifica" value="false" <%= aluno.getPossuiNecessidadeEspecifica() == false ? "checked" : "" %>>
-                        NÃO
-                    </label>
-                </div>
+                <label>Nome do Técnico:</label>
+                <input type="text" name="tecnico" value="<%= time.getNomeTecnico() %>" required class="form-control">
             </div>
 
-            <div class="form-group">
-                <label for="descricaoNecessidadeEspecifica">Descrição da necessidade específica:</label>
-                <textarea id="descricaoNecessidadeEspecifica" name="descricaoNecessidadeEspecifica" rows="4" 
-                        cols="50">
-                        <%= aluno.getDescricaoNecessidadeEspecifica() %>
-                </textarea>
+            <div class="form-actions" style="margin-top: 20px;">
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+                <a href="listarTimes.jsp" class="btn btn-secondary" style="margin-left: 10px;">Cancelar</a>
             </div>
-
-            <div class="form-group">
-                <label for="estado">Curso:</label>
-                <select id="curso" name="curso">
-                    <option value="0">Selecione</option>
-                    <% for(Curso curso:(List<Curso>)request.getAttribute("cursos")){ %>
-                        <option value="<%=curso.getId()%>" <%= curso.getId() == aluno.getIdCurso() ? "selected" : "" %> >
-                            <%=curso.getSigla()%> - <%=curso.getNome()%>
-                        </option>
-                    <% } %>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Enviar">
-               
-                <a href="/app-web">
-                    <input type="button" value="Cancelar">
-                </a>
-            </div>
-
+            
         </form>
     </div>
-
 </body>
 </html>

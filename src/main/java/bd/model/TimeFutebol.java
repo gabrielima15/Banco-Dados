@@ -1,9 +1,10 @@
 package bd.model;
 
 public class TimeFutebol {
+    // Campos principais (do banco de dados)
     private int id_time;
     private String nome;
-    private String caminhoEscudo; 
+    private String caminhoEscudo; // Corrigido para minúscula (camelCase)
     private Integer id_cidade;
     private Integer id_tecnico;
     
@@ -11,8 +12,10 @@ public class TimeFutebol {
     private String nomeCidade;
     private String nomeTecnico;
 
+    // Construtor vazio (obrigatório para o DAO funcionar bem)
     public TimeFutebol() {}
 
+    // Construtor completo
     public TimeFutebol(int id_time, String nome, String caminhoEscudo, Integer id_cidade, Integer id_tecnico) {
         this.id_time = id_time;
         this.nome = nome;
@@ -63,8 +66,6 @@ public class TimeFutebol {
     public void setIdtecnico(Integer id_tecnico) {
         this.id_tecnico = id_tecnico;
     }
-    
-    
     
     public String getNomeCidade() {
         return nomeCidade;
