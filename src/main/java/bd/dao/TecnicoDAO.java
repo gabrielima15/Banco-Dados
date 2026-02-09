@@ -12,7 +12,7 @@ import bd.model.Tecnico;
 public class TecnicoDAO {
     
     public void salvar(Tecnico tecnico) throws Exception {
-        String sql = "INSERT INTO tecnico (nome) VALUES (?)"; // Tabela minúscula
+        String sql = "INSERT INTO tecnico (nome) VALUES (?)"; 
 
         try(Connection c = ConnectionFactory.getConnection();
             PreparedStatement ps = c.prepareStatement(sql)){
@@ -23,15 +23,14 @@ public class TecnicoDAO {
 
     public List<Tecnico> listar() throws Exception{
         List<Tecnico> lista = new ArrayList<>();
-        String sql = "SELECT * FROM tecnico"; // Tabela minúscula
-
+        String sql = "SELECT * FROM tecnico"; 
         try(Connection c = ConnectionFactory.getConnection(); 
             Statement st = c.createStatement()){
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
                 lista.add(new Tecnico(
-                    rs.getInt("id_tecnico"), // NOVO NOME DA COLUNA NO BANCO
+                    rs.getInt("id_tecnico"), 
                     rs.getString("nome")
                 ));
             }
@@ -40,7 +39,7 @@ public class TecnicoDAO {
     }
 
     public Tecnico buscar(int id) throws Exception {
-        String sql = "SELECT * FROM tecnico WHERE id_tecnico=?"; // WHERE id_tecnico
+        String sql = "SELECT * FROM tecnico WHERE id_tecnico=?"; 
 
         try(Connection c = ConnectionFactory.getConnection();
             PreparedStatement ps = c.prepareStatement(sql)){

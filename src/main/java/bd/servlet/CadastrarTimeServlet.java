@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import bd.dao.TimeFutebolDAO;
 
 
-// Define a URL que o formulário vai chamar
 @WebServlet(name = "CadastrarTimeServlet", urlPatterns = {"/CadastrarTimeServlet"})
 public class CadastrarTimeServlet extends HttpServlet {
 
@@ -17,10 +16,8 @@ public class CadastrarTimeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // 1. Configurar codificação para aceitar acentos
         request.setCharacterEncoding("UTF-8");
 
-        // 2. Receber os dados do formulário JSP
         String nomeTime = request.getParameter("nome");
         String nomeCidade = request.getParameter("cidade");
         String nomeTecnico = request.getParameter("tecnico");
@@ -29,12 +26,10 @@ public class CadastrarTimeServlet extends HttpServlet {
         String tipoMensagem = "";
 
         try {
-            // 3. Validar se os campos não estão vazios
             if (nomeTime != null && !nomeTime.isEmpty() && 
                 nomeCidade != null && !nomeCidade.isEmpty() && 
                 nomeTecnico != null && !nomeTecnico.isEmpty()) {
 
-                // 4. Chamar o DAO para salvar tudo
                 TimeFutebolDAO dao = new TimeFutebolDAO();
                 dao.salvarCompleto(nomeTime, nomeCidade, nomeTecnico);
 
@@ -48,10 +43,8 @@ public class CadastrarTimeServlet extends HttpServlet {
         } catch (Exception e) {
             mensagem = "Erro ao cadastrar: " + e.getMessage();
             tipoMensagem = "erro";
-            // Mostra o erro no console do servidor
         }
 
-        // 5. Enviar mensagem de volta para o JSP e recarregar a página
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("tipoMensagem", tipoMensagem);
         

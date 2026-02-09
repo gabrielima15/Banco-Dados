@@ -19,14 +19,12 @@ public class EditarTimeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         try {
-            // Recebe os dados
             int id = Integer.parseInt(request.getParameter("id"));
             String nomeTime = request.getParameter("nome");
             String nomeCidade = request.getParameter("cidade");
             String nomeTecnico = request.getParameter("tecnico");
             String urlEscudo = request.getParameter("escudo"); // Novo campo
 
-            // Monta o objeto
             TimeFutebol time = new TimeFutebol();
             time.setId(id);
             time.setNome(nomeTime);
@@ -34,11 +32,9 @@ public class EditarTimeServlet extends HttpServlet {
             time.setNomeTecnico(nomeTecnico);
             time.setCaminhoEscudo(urlEscudo);
 
-            // Chama o DAO atualizado
             TimeFutebolDAO dao = new TimeFutebolDAO();
             dao.atualizarCompleto(time);
 
-            // Redireciona para a lista
             response.sendRedirect("listarTimes.jsp");
 
         } catch (Exception e) {

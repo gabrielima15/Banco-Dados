@@ -12,7 +12,6 @@ import java.sql.SQLException;
 
 public class TimeFutebolDAO {
 
-    // --- CADASTRO COMPLETO (Time + Cidade + Tecnico) ---
     public void salvarCompleto(String nomeTime, String nomeCidade, String nomeTecnico) throws Exception {
         Connection c = ConnectionFactory.getConnection();
         c.setAutoCommit(false); 
@@ -24,7 +23,6 @@ public class TimeFutebolDAO {
         ResultSet rsTecnico = null;
 
         try {
-            // 1. INSERIR CIDADE (recupera id_cidade)
             String sqlCidade = "INSERT INTO cidade (nome) VALUES (?) RETURNING id_cidade";
             psCidade = c.prepareStatement(sqlCidade);
             psCidade.setString(1, nomeCidade);
@@ -33,7 +31,6 @@ public class TimeFutebolDAO {
             int idCidade = 0;
             if (rsCidade.next()) idCidade = rsCidade.getInt("id_cidade");
 
-            // 2. INSERIR TÉCNICO (recupera id_tecnico)
             String sqlTecnico = "INSERT INTO tecnico (nome) VALUES (?) RETURNING id_tecnico";
             psTecnico = c.prepareStatement(sqlTecnico);
             psTecnico.setString(1, nomeTecnico);
@@ -42,11 +39,10 @@ public class TimeFutebolDAO {
             int idTecnico = 0;
             if (rsTecnico.next()) idTecnico = rsTecnico.getInt("id_tecnico");
 
-            // 3. INSERIR O TIME (usa id_time, id_cidade, id_tecnico)
             String sqlTime = "INSERT INTO Time_futebol (nome, caminho_escudo, id_cidade, id_tecnico) VALUES (?, ?, ?, ?)";
             psTime = c.prepareStatement(sqlTime);
             psTime.setString(1, nomeTime);
-            psTime.setString(2, ""); // Escudo vazio inicialmente
+            psTime.setString(2, ""); 
             psTime.setInt(3, idCidade);
             psTime.setInt(4, idTecnico);
             
@@ -66,11 +62,9 @@ public class TimeFutebolDAO {
         }
     }
 
-    // --- LISTAR COM NOMES ---
     public List<TimeFutebol> listar() throws Exception {
         List<TimeFutebol> lista = new ArrayList<>();
         
-        // Busca os dados do time + nome da cidade + nome do técnico
         String sql = "SELECT t.id_time, t.nome, t.caminho_escudo, " +
                      "c.nome AS nome_cidade, te.nome AS nome_tecnico " +
                      "FROM Time_futebol t " +
@@ -87,11 +81,10 @@ public class TimeFutebolDAO {
                 time.setId(rs.getInt("id_time"));
                 time.setNome(rs.getString("nome"));
                 
-                // Trata o escudo
+                
                 String escudo = rs.getString("caminho_escudo");
                 time.setCaminhoEscudo(escudo != null ? escudo : ""); 
                 
-                // Preenche os nomes que vieram do JOIN
                 time.setNomeCidade(rs.getString("nome_cidade"));
                 time.setNomeTecnico(rs.getString("nome_tecnico"));
                 
@@ -101,7 +94,6 @@ public class TimeFutebolDAO {
         return lista;
     }
 
-    // --- BUSCAR POR ID (Com JOIN para trazer os nomes) ---
     public TimeFutebol buscar(int id) throws Exception {
         String sql = "SELECT t.id_time, t.nome, t.caminho_escudo, t.id_cidade, t.id_tecnico, " +
                      "c.nome AS nome_cidade, te.nome AS nome_tecnico " +
@@ -124,7 +116,6 @@ public class TimeFutebolDAO {
                 time.setId_cidade(rs.getInt("id_cidade"));
                 time.setIdtecnico(rs.getInt("id_tecnico"));
                 
-                // Preenche os nomes auxiliares
                 time.setNomeCidade(rs.getString("nome_cidade"));
                 time.setNomeTecnico(rs.getString("nome_tecnico"));
                 
@@ -134,13 +125,11 @@ public class TimeFutebolDAO {
         return null;
     }
 
-    // --- ATUALIZAR COMPLETO (Time + Cidade + Tecnico) ---
     public void atualizarCompleto(TimeFutebol time) throws Exception {
         Connection c = ConnectionFactory.getConnection();
-        c.setAutoCommit(false); // Inicia transação
+        c.setAutoCommit(false); 
 
         try {
-            // 1. Descobrir quais são os IDs de cidade e técnico deste time
             int idCidade = 0;
             int idTecnico = 0;
             
@@ -154,7 +143,6 @@ public class TimeFutebolDAO {
                 }
             }
 
-            // 2. Atualizar nome da Cidade
             String sqlCidade = "UPDATE cidade SET nome = ? WHERE id_cidade = ?";
             try (PreparedStatement psC = c.prepareStatement(sqlCidade)) {
                 psC.setString(1, time.getNomeCidade());
@@ -162,7 +150,6 @@ public class TimeFutebolDAO {
                 psC.execute();
             }
 
-            // 3. Atualizar nome do Técnico
             String sqlTecnico = "UPDATE tecnico SET nome = ? WHERE id_tecnico = ?";
             try (PreparedStatement psT = c.prepareStatement(sqlTecnico)) {
                 psT.setString(1, time.getNomeTecnico());
@@ -170,7 +157,6 @@ public class TimeFutebolDAO {
                 psT.execute();
             }
 
-            // 4. Atualizar Time (Nome e Escudo)
             String sqlTime = "UPDATE Time_futebol SET nome = ?, caminho_escudo = ? WHERE id_time = ?";
             try (PreparedStatement psTime = c.prepareStatement(sqlTime)) {
                 psTime.setString(1, time.getNome());
@@ -179,7 +165,7 @@ public class TimeFutebolDAO {
                 psTime.execute();
             }
 
-            c.commit(); // Salva tudo
+            c.commit(); 
         } catch (Exception e) {
             c.rollback();
             throw e;
@@ -188,23 +174,7 @@ public class TimeFutebolDAO {
         }
     }
 
-    // --- ATUALIZAR SIMPLES (Só o time) ---
-    // public void atualizar(TimeFutebol time) throws Exception {
-    //     String sql = "UPDATE Time_futebol SET nome=?, id_cidade=?, id_tecnico=? WHERE id_time=?";
 
-    //     try(Connection c = ConnectionFactory.getConnection();
-    //         PreparedStatement ps = c.prepareStatement(sql)){
-
-    //         ps.setString(1, time.getNome());
-    //         ps.setObject(2, time.getId_cidade());
-    //         ps.setObject(3, time.getIdtecnico());
-    //         ps.setInt(4, time.getId());
-
-    //         ps.execute();
-    //     }
-    // }
-
-    // --- EXCLUIR ---
     public void excluir(int id) throws Exception {
         String sql = "DELETE FROM Time_futebol WHERE id_time=?";
 

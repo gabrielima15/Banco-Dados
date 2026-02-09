@@ -16,18 +16,15 @@ public class ExcluirTimeServlet extends HttpServlet {
             throws ServletException, IOException {
         
         try {
-            // 1. Pega o ID que veio oculto no formulário
             int id = Integer.parseInt(request.getParameter("id"));
 
-            // 2. Chama o DAO para excluir
             TimeFutebolDAO dao = new TimeFutebolDAO();
             dao.excluir(id);
 
         } catch (Exception e) {
-            e.printStackTrace(); // Erro vai pro console
+            e.printStackTrace(); 
         }
 
-        // 3. Redireciona de volta para a lista (atualizada)
         response.sendRedirect("listarTimes.jsp");
     }
 }
