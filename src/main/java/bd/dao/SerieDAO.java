@@ -9,7 +9,6 @@ import javax.naming.spi.DirStateFactory.Result;
 import java.util.ArrayList;
 
 import bd.model.Serie;
-import bd.dto.SerieDTO;
 import bd.util.ConnectionFactory;
 
 public class SerieDAO {

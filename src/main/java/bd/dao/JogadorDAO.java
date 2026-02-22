@@ -8,7 +8,7 @@ import java.util.List;
 import javax.naming.spi.DirStateFactory.Result;
 import java.util.ArrayList;
 
-import bd.dto.JogadorDTO;
+import bd.dto.JogadorTimeCidadeDTO;
 import bd.model.Jogador;
 import bd.util.ConnectionFactory;
 

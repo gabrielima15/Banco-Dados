@@ -14,5 +14,5 @@ public class ConnectionFactory {
         Class.forName("org.postgresql.Driver");
         return DriverManager.getConnection(URL, USER, PASS);
     }
-
+    
 }
