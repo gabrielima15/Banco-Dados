@@ -22,28 +22,40 @@ public class JogadorDAO {
 
             ps.setString(1, jogador.getNome());
             ps.setInt(2, jogador.getnCamisa());  
-            ps.setInt(3, jogador.getPosicao());
+            ps.setString(3, jogador.getPosicao());
             ps.setObject(4,jogador.getIdTime());
             ps.execute();
             
         }
     }
 
-    // public void inserir(JogadorDTO jogador) throws Exception {
-    //     Connection c = ConnectionFactory.getConnection();
-    //     PreparedStatement ps = c.prepareStatement(
-    //         "INSERT INTO Jogador (nome, N_camisa, posicao, id_time) VALUES (?, ?, ?, ?)"
-    //     );
+    public List<JogadorTimeCidadeDTO> listaJogadorTimeCidadeDTOs() throws Exception{
+        List<JogadorTimeCidadeDTO> lista = new ArrayList<>();    
 
-    //     ps.setString(1, jogador.getNome());
-    //     ps.setInt(2, jogador.getNumeroCamisa());
-    //     ps.setInt(3, jogador.getPosicao());
-    //     ps.setInt(4, jogador.getIdTime());
+            String sql = "SELECT  j.nome AS jogador, tf.nome AS time,c.nome AS cidade,"+
+                "te.nome AS tecnico FROM jogador j INNER JOIN time_futebol tf "+
+                "ON j.id_time = tf.id_time INNER JOIN cidade c ON tf.id_cidade = c.id_cidade"+
+                "INNER JOIN tecnico te ON tf.id_tecnico = te.id_tecnico where j.posicao = ?";
 
-    //     ps.executeUpdate();
-    //     ps.close();
-    //     c.close();
-    // }
+                try (Connection c = ConnectionFactory.getConnection();
+                    Statement st = c.createStatement()) {
+                    ResultSet rs = st.executeQuery(sql);
+
+                    while (rs.next()) {
+                        lista.add(new JogadorTimeCidadeDTO(
+                            rs.getString("nomeJogador"),
+                            rs.getString("nomeTime"),
+                            rs.getString("nomeCidade"),
+                            rs.getInt("posicao")
+                        ));
+                        
+                    }
+                    
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+        return lista;
+    }
 
 
     public List<Jogador> listar() throws Exception{
@@ -59,7 +71,7 @@ public class JogadorDAO {
                     rs.getInt("id"),
                     rs.getString("nome"),
                     rs.getInt("N_camisa"),
-                    rs.getInt("posicao"),
+                    rs.getString("posicao"),
                     rs.getObject("id_time",Integer.class)
                 ));            
             }
@@ -81,7 +93,7 @@ public class JogadorDAO {
                     rs.getInt("id"),
                     rs.getString("nome"),
                     rs.getInt("N_camisa"),
-                    rs.getInt("posicao"),
+                    rs.getString("posicao"),
                     rs.getObject("id_time",Integer.class)
                 );
             }
@@ -97,7 +109,7 @@ public class JogadorDAO {
 
             ps.setString(1, jogador.getNome());
             ps.setInt(2,jogador.getnCamisa());
-            ps.setInt(3, jogador.getPosicao());
+            ps.setString(3, jogador.getPosicao());
             ps.setObject(4, jogador.getIdTime());
             ps.execute();
         }
@@ -129,4 +141,5 @@ public class JogadorDAO {
             ps.execute();
         }
     }
+
 }

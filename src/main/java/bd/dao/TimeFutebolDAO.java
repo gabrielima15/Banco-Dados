@@ -3,6 +3,7 @@ package bd.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import javax.naming.spi.DirStateFactory.Result;
 import java.util.ArrayList;
 
 import bd.util.ConnectionFactory;
+import bd.dto.QuantidadeTimesCidadeDTO;
+import bd.dto.TimeJogadorDTO;
 import bd.model.TimeFutebol;
 
 public class TimeFutebolDAO {
@@ -45,6 +48,60 @@ public class TimeFutebolDAO {
                     rs.getObject("id_tecnico",Integer.class)
                 ));            
             }
+        }
+        return lista;
+    }
+
+    public List<QuantidadeTimesCidadeDTO> quantidadeTimePorCidade() throws Exception{
+        List<QuantidadeTimesCidadeDTO> lista = new ArrayList<>();
+
+        String sql = "SELECT"+" c.nome AS cidade," + 
+                        "COUNT(t.id_time) AS quantidade_times" +
+                        "FROM cidade c" +
+                        "INNER JOIN time_futebol t " +
+                        "ON c.id_cidade = t.id_cidade" + 
+                        "GROUP BY c.nome" +
+                        "ORDER BY quantidade_times DESC;";
+
+        try (Connection c = ConnectionFactory.getConnection();
+            Statement st = c.createStatement()){
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                lista.add(new QuantidadeTimesCidadeDTO(
+                    rs.getString("cidade"),
+                    rs.getLong("quantidade")
+                ));
+            }
+            
+        } catch (Exception e) {
+            throw new Exception("Erro ao consultar quantidade de times por cidade: " +
+            e.getMessage()); 
+        }
+        return lista;
+    }
+
+    public List<TimeJogadorDTO> listarTimesJogador() throws Exception{
+        List<TimeJogadorDTO> lista = new ArrayList<>();
+        
+        String sql = "SELECT t.nome AS time,j.nome AS jogador,j.n_camisa,j.posicao"+
+                    "FROM time_futebol t LEFT JOIN jogador j ON t.id_time = j.id_time"+
+                    "ORDER BY t.nome, j.nome";
+        try (Connection c = ConnectionFactory.getConnection();
+            Statement st = c.createStatement()){
+
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                lista.add(new TimeJogadorDTO(
+                    rs.getString("time"),
+                    rs.getString("jogador")
+                ));
+            }
+            
+        } catch (Exception e) {
+            throw new Exception("Erro ao consultar times e jogadores: " + e.getMessage());
         }
         return lista;
     }

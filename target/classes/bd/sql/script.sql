@@ -26,7 +26,7 @@ CREATE Table Jogador(
     id serial PRIMARY key,
     nome VARCHAR(20),
     N_camisa INT,
-    posicao INT,
+    posicao VARCHAR(20),
     id_time INTEGER,
     Foreign key(id_time) REFERENCES Time_futebol (id)
 );

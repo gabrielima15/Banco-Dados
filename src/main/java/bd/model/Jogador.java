@@ -5,7 +5,7 @@ public class Jogador {
     private int id;
     private String nome;
     private int nCamisa;
-    private int posicao;
+    private String posicao;
     private Integer idTime;
 
     
@@ -13,7 +13,7 @@ public class Jogador {
 
     }
 
-    public Jogador(int id, String nome, int nCamisa, int posicao, Integer idTime) {
+    public Jogador(int id, String nome, int nCamisa, String posicao, Integer idTime) {
         this.id = id;
         this.nome = nome;
         this.nCamisa = nCamisa;
@@ -21,7 +21,7 @@ public class Jogador {
         this.idTime = idTime;
     }
 
-    public Jogador(String nome, int nCamisa, int posicao, Integer idTime) {
+    public Jogador(String nome, int nCamisa, String posicao, Integer idTime) {
         this.nome = nome;
         this.nCamisa = nCamisa;
         this.posicao = posicao;
@@ -52,11 +52,11 @@ public class Jogador {
         this.nCamisa = nCamisa;
     }
 
-    public int getPosicao() {
+    public String getPosicao() {
         return posicao;
     }
 
-    public void setPosicao(int posicao) {
+    public void setPosicao(String posicao) {
         this.posicao = posicao;
     }
 
