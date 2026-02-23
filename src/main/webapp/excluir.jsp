@@ -1,11 +1,10 @@
-
-<%-@
+<%-- --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="bd.dao.TimeFutebolDAO" %>
 <%@ page import="bd.model.TimeFutebol" %>
 
 <%
-    // Recupera o ID da URL (ex: excluir.jsp?id=1)
+
     String idStr = request.getParameter("id");
     TimeFutebol time = null;
 
@@ -41,7 +40,7 @@
         
         <form action="<%= request.getContextPath() %>/ExcluirTimeServlet" method="post">
 
-            <%-- O ID fica escondido, mas é enviado para o Servlet saber quem apagar --%>
+           
             <input type="hidden" name="id" value="<%= time.getId() %>">
 
             <div class="form-group">

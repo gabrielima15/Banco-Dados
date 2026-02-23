@@ -3,7 +3,7 @@
 <%@ page import="bd.model.TimeFutebol" %>
 
 <%
-    // Lógica para carregar os dados do time antes de mostrar o formulário
+    
     String idStr = request.getParameter("id");
     TimeFutebol time = null;
     
@@ -12,7 +12,7 @@
         time = dao.buscar(Integer.parseInt(idStr));
     }
     
-    // Se não achou o time, volta pro início
+ 
     if (time == null) {
         response.sendRedirect("listarTimes.jsp");
         return;
@@ -34,6 +34,22 @@
         </div>
 
         <form method="post" action="EditarTimeServlet">
+            <div class="form-group">
+                <label>Vincular ao Campeonato:</label>
+                <select name="idCampeonato" required class="form-control">
+                    <option value="">-- Selecione --</option>
+                    <%
+                        try {
+                            bd.dao.CampeonatoDAO campDao = new bd.dao.CampeonatoDAO();
+                            for(bd.model.Campeonato c : campDao.listar()) {
+                    %>
+                        <option value="<%= c.getId() %>"><%= c.getNome() %></option>
+                    <% 
+                            }
+                        } catch(Exception e) { }
+                    %>
+                </select>
+            </div>
             
             <%-- O ID fica escondido aqui. O usuário não vê, mas é enviado pro Servlet --%>
             <input type="hidden" name="id" value="<%= time.getId() %>">

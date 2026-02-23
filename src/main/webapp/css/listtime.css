@@ -56,3 +56,14 @@
 .btn-view-players:hover {
     background-color: #138496;
 }
+
+        .escudo-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 1px solid #ddd;
+        }
+        .escudo-placeholder {
+            font-size: 24px;
+        }

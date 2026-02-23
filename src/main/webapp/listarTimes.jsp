@@ -17,19 +17,7 @@
     <title>Lista de Times</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/listtime.css">
-    <style>
-        /* CSS Rápido para a imagem do escudo ficar bonita na tabela */
-        .escudo-img {
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 1px solid #ddd;
-        }
-        .escudo-placeholder {
-            font-size: 24px;
-        }
-    </style>
+
 </head>
 <body>
     <div class="container" style="max-width: 1000px;"> 
@@ -53,11 +41,10 @@
             <tbody>
                 <%
                     try {
-                        // 1. Instancia o DAO e busca a lista
+                        
                         TimeFutebolDAO dao = new TimeFutebolDAO();
                         List<TimeFutebol> lista = dao.listar();
-                        
-                        // 2. Loop para criar as linhas da tabela
+                       
                         for(TimeFutebol time : lista) {
                 %>
                 <tr>
@@ -91,7 +78,7 @@
                     </td>
                 </tr>
                 <% 
-                        } // Fim do For
+                        } 
                     } catch(Exception e) {
                 %>
                     <tr>
