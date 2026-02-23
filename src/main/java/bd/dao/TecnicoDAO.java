@@ -24,6 +24,7 @@ public class TecnicoDAO {
     public List<Tecnico> listar() throws Exception{
         List<Tecnico> lista = new ArrayList<>();
         String sql = "SELECT * FROM tecnico"; 
+
         try(Connection c = ConnectionFactory.getConnection(); 
             Statement st = c.createStatement()){
             ResultSet rs = st.executeQuery(sql);

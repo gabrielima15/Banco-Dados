@@ -14,7 +14,7 @@ CREATE TABLE tecnico (
 CREATE TABLE Time_futebol (
     id_time SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    caminho_escudo VARCHAR(255),
+    caminho_escudo TEXT,
     id_cidade INT NOT NULL,
     id_tecnico INT UNIQUE, 
     FOREIGN KEY (id_cidade) REFERENCES cidade(id_cidade),
@@ -27,7 +27,7 @@ CREATE TABLE jogador (
     nome VARCHAR(100) NOT NULL,
     n_camisa INT,
     posicao VARCHAR(50),
-    caminho_foto VARCHAR(255), 
+    caminho_foto TEXT, 
     id_time INT NOT NULL,
    
     FOREIGN KEY (id_time) REFERENCES Time_futebol(id_time) ON DELETE CASCADE

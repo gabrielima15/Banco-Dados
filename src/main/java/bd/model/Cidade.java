@@ -2,6 +2,7 @@ package bd.model;
 
 public class Cidade {
     private int id;
+    @SuppressWarnings("FieldMayBeFinal")
     private String nome;
 
     public Cidade(int id, String nome) {

@@ -3,7 +3,9 @@ package bd.model;
 public class Campeonato {
     private int id;
     private String nome;
-
+    
+    public Campeonato (){
+    }
     public Campeonato(int id,String nome){
         this.id = id;
         this.nome = nome;

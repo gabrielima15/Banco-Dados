@@ -1,130 +1,86 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package bd.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.List;
-import javax.naming.spi.DirStateFactory.Result;
-import java.util.ArrayList;
+/**
+ *
+ * @author janailson
+ */
 
-import bd.dto.JogadorDTO;
-import bd.model.Jogador;
+import java.sql.*;
 import bd.util.ConnectionFactory;
+import bd.model.Jogador;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JogadorDAO {
-    
-    public void salvar(Jogador jogador) throws Exception{
-        String sql = "INSERT INTO Jogador " + "(nome,N_camisa,posicao,id_time) " + "VALUES (?,?,?,?)";
+    public void salvar(Jogador jogador) throws Exception {
+
+        String sql = "INSERT INTO jogador (nome, n_camisa, posicao, caminho_foto, id_time) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection c = ConnectionFactory.getConnection();
-            PreparedStatement ps = c.prepareStatement(sql)){
-
-            ps.setString(1, jogador.getNome());
-            ps.setInt(2, jogador.getnCamisa());  
-            ps.setInt(3, jogador.getPosicao());
-            ps.setObject(4,jogador.getIdTime());
-            ps.execute();
+             PreparedStatement ps = c.prepareStatement(sql)) {
             
+            ps.setString(1, jogador.getNome());
+            ps.setInt(2, jogador.getnCamisa());
+            ps.setString(3, jogador.getPosicao()); // Agora como String
+            ps.setString(4, jogador.getCaminhoFoto());
+            ps.setInt(5, jogador.getIdTime());
+            
+            ps.execute();
         }
     }
+    
 
-    // public void inserir(JogadorDTO jogador) throws Exception {
-    //     Connection c = ConnectionFactory.getConnection();
-    //     PreparedStatement ps = c.prepareStatement(
-    //         "INSERT INTO Jogador (nome, N_camisa, posicao, id_time) VALUES (?, ?, ?, ?)"
-    //     );
-
-    //     ps.setString(1, jogador.getNome());
-    //     ps.setInt(2, jogador.getNumeroCamisa());
-    //     ps.setInt(3, jogador.getPosicao());
-    //     ps.setInt(4, jogador.getIdTime());
-
-    //     ps.executeUpdate();
-    //     ps.close();
-    //     c.close();
-    // }
-
-
-    public List<Jogador> listar() throws Exception{
+    public List<Jogador> listarPorTime(int idTime) throws Exception {
         List<Jogador> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Jogador";
+        String sql = "SELECT * FROM jogador WHERE id_time = ? ORDER BY n_camisa";
 
-        try(Connection c = ConnectionFactory.getConnection();
-            Statement st = c.createStatement()){
-            ResultSet rs = st.executeQuery(sql);
+        try (Connection c = ConnectionFactory.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, idTime);
+            ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 lista.add(new Jogador(
-                    rs.getInt("id"),
+                    rs.getInt("id_jogador"),
                     rs.getString("nome"),
-                    rs.getInt("N_camisa"),
-                    rs.getInt("posicao"),
-                    rs.getObject("id_time",Integer.class)
-                ));            
+                    rs.getInt("n_camisa"),
+                    rs.getString("posicao"),
+                    rs.getString("caminho_foto"),
+                    rs.getInt("id_time")
+                ));
             }
         }
         return lista;
     }
 
-    public Jogador buscar(int id) throws Exception{
-        String sql = "SELECT * FROM Jogador WHERE id=?";
+    public void atualizar(Jogador jogador) throws Exception {
+        String sql = "UPDATE jogador SET nome=?, n_camisa=?, posicao=?, caminho_foto=?, id_time=? WHERE id_jogador=?";
 
-        try(Connection c = ConnectionFactory.getConnection();
-            PreparedStatement ps = c.prepareStatement(sql)){
-
-            ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery();
-
-            if(rs.next()){
-                return new Jogador(
-                    rs.getInt("id"),
-                    rs.getString("nome"),
-                    rs.getInt("N_camisa"),
-                    rs.getInt("posicao"),
-                    rs.getObject("id_time",Integer.class)
-                );
-            }
-        }
-        return null;
-    }
-
-    public void atualizar(Jogador jogador)throws Exception{
-        String sql = "UPDATE Jogador SET nome=?,N_camisa=?,id_time=? WHERE id=?";
-
-        try(Connection c = ConnectionFactory.getConnection();
-            PreparedStatement ps = c.prepareStatement(sql)){
+        try (Connection c = ConnectionFactory.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setString(1, jogador.getNome());
-            ps.setInt(2,jogador.getnCamisa());
-            ps.setInt(3, jogador.getPosicao());
-            ps.setObject(4, jogador.getIdTime());
+            ps.setInt(2, jogador.getnCamisa());
+            ps.setString(3, jogador.getPosicao());
+            ps.setString(4, jogador.getCaminhoFoto());
+            ps.setInt(5, jogador.getIdTime());
+            ps.setInt(6, jogador.getId());
+
             ps.execute();
         }
     }
-
-    // public void atualizar(JogadorDTO jogador) throws Exception {
-    //     String sql = "UPDATE Jogador SET nome=?, N_camisa=?, posicao=?, id_time=? WHERE id=?";
-
-    //     try (Connection c = ConnectionFactory.getConnection();
-    //             PreparedStatement ps = c.prepareStatement(sql)) {
-
-    //         ps.setString(1, jogador.getNome());
-    //         ps.setInt(2, jogador.getNumeroCamisa());
-    //         ps.setInt(3, jogador.getPosicao());
-    //         ps.setInt(4, jogador.getIdTime());
-    //         ps.setInt(5, jogador.getId());
-
-    //         ps.executeUpdate();
-    //     }
-    // }
-
+    
+    
+ 
     public void excluir(int id) throws Exception {
-        String sql = "DELETE FROM Jogador WHERE id=?";
-
-        try(Connection c = ConnectionFactory.getConnection();
-            PreparedStatement ps = c.prepareStatement(sql)) {
-
+        String sql = "DELETE FROM jogador WHERE id_jogador = ?";
+        try (Connection c = ConnectionFactory.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, id);
             ps.execute();
         }

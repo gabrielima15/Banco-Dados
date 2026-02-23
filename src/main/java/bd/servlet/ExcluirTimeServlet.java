@@ -3,9 +3,7 @@ package bd.servlet;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.*;
 import bd.dao.TimeFutebolDAO;
 
 @WebServlet(name = "ExcluirTimeServlet", urlPatterns = {"/ExcluirTimeServlet"})
@@ -21,10 +19,9 @@ public class ExcluirTimeServlet extends HttpServlet {
             TimeFutebolDAO dao = new TimeFutebolDAO();
             dao.excluir(id);
 
+            response.sendRedirect("listarTimes.jsp?sucesso=Time excluido");
         } catch (Exception e) {
-            e.printStackTrace(); 
+            response.sendRedirect("index.jsp?erro=" + e.getMessage());
         }
-
-        response.sendRedirect("listarTimes.jsp");
     }
 }

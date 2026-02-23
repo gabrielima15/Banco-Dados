@@ -2,31 +2,37 @@ package bd.model;
 
 public class Jogador {
     
-    private int id;
-    private String nome;
-    private int nCamisa;
-    private int posicao;
-    private Integer idTime;
+    private int id;            
+    private String nome;       
+    private int nCamisa;       
+    private String posicao;     
+    private String caminhoFoto; 
+    private Integer idTime;     
 
-    
+   
     public Jogador() {
-
     }
 
-    public Jogador(int id, String nome, int nCamisa, int posicao, Integer idTime) {
+    
+    public Jogador(int id, String nome, int nCamisa, String posicao, String caminhoFoto, Integer idTime) {
         this.id = id;
         this.nome = nome;
         this.nCamisa = nCamisa;
         this.posicao = posicao;
+        this.caminhoFoto = caminhoFoto;
         this.idTime = idTime;
     }
 
-    public Jogador(String nome, int nCamisa, int posicao, Integer idTime) {
+    // Construtor para Inserção (sem ID)
+    public Jogador(String nome, int nCamisa, String posicao, String caminhoFoto, Integer idTime) {
         this.nome = nome;
         this.nCamisa = nCamisa;
         this.posicao = posicao;
+        this.caminhoFoto = caminhoFoto;
         this.idTime = idTime;
     }
+
+
 
     public int getId() {
         return id;
@@ -52,12 +58,20 @@ public class Jogador {
         this.nCamisa = nCamisa;
     }
 
-    public int getPosicao() {
+    public String getPosicao() {
         return posicao;
     }
 
-    public void setPosicao(int posicao) {
+    public void setPosicao(String posicao) {
         this.posicao = posicao;
+    }
+
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
+
+    public void setCaminhoFoto(String caminhoFoto) {
+        this.caminhoFoto = caminhoFoto;
     }
 
     public Integer getIdTime() {
@@ -67,8 +81,4 @@ public class Jogador {
     public void setIdTime(Integer idTime) {
         this.idTime = idTime;
     }
-
-    
-
-    
 }
